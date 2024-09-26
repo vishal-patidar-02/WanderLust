@@ -58,7 +58,7 @@ body {
 }
 
 /* cards */
-.card {
+.listing-card {
   border: none !important;
   margin-bottom: 2rem;
 }
@@ -100,6 +100,7 @@ body {
   background-color: #fe424d !important;
   border: none !important;
   margin-bottom: 2rem;
+  width: 5rem !important;
 }
 
 /* show.ejs */
@@ -109,7 +110,6 @@ body {
 
 .btns {
   display: flex;
-  margin-bottom: 2rem;
 }
 
 .show-card {
