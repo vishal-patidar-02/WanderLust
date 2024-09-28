@@ -6,6 +6,7 @@ WanderLust Phase-1 is the initial version of a travel planning application devel
 
 - **CRUD**: your can create an Listing, Find it, edit it and also delete it.
 - **Responsive**: Implementing An responsiveness in this website so it can friendly to any device
+-- **Review**: you can able to give review to listing
 
 ## Technologies Used
 
