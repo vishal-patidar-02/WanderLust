@@ -7,9 +7,13 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
-const listings = require("./router/listings.js");
-const reviews = require("./router/reviews.js");
+const listingRouter = require("./router/listings.js");
+const reviewRouter = require("./router/reviews.js");
+const userRouter = require("./router/user.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
@@ -39,25 +43,43 @@ app.get("/", (req, res) => {
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
-  saveUninitialized:true,
-  cookie:{
-     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-     maxAge: 7 * 24 * 60 * 60 * 1000,
-     httpOnly: true
-  }
-}
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 
 app.use(session(sessionOptions));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
-})
+});
 
-app.use("/listings", listings); //Listing routes
-app.use("/listings/:id/reviews", reviews); //Reviews routes
+app.get("/demoUser", async (req, res) => {
+  const fakeUser = new User({
+    email: "abcd@gmail.com",
+    username: "abcd",
+  });
+
+  const registerUser = await User.register(fakeUser, "hello");
+  res.send(registerUser);
+});
+
+app.use("/listings", listingRouter); //Listing routes
+app.use("/listings/:id/reviews", reviewRouter); //Reviews routes
+app.use("/", userRouter);
 
 app.listen(8080, () => {
   console.log("Server is listening to port: 8080");
