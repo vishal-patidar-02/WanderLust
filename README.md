@@ -1,6 +1,6 @@
-# WanderLust Phase-2
+# WanderLust
 
-WanderLust Phase-2 is the intermediate version of a travel planning application developed as part of the Delta batch by Apna College. This phase includes essential features for users to start exploring and planning their travels.
+WanderLust  is the intermediate version of a travel planning application developed as part of the Delta batch by Apna College. This project includes essential features for users to start exploring and planning their travels.
 
 ## Features
 
@@ -8,6 +8,8 @@ WanderLust Phase-2 is the intermediate version of a travel planning application 
 - **Responsive**: Implementing An responsiveness in this website so it can friendly to any device
 - **user**: User can Signup, login and loggout.
 - **Review**: you can able to give review to listing
+- **session**: It can stores users info upto 14 days.
+- **location**: It can shows the listing location by Maps API.
 
 ## Technologies Used
 
@@ -34,7 +36,7 @@ WanderLust Phase-2 is the intermediate version of a travel planning application 
 
 ## Installation
 
-To set up WanderLust Phase-1 locally, follow these steps:
+To set up WanderLust locally, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
