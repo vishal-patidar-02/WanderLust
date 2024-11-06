@@ -27,7 +27,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderLust";
+// const dbUrl = "mongodb://127.0.0.1:27017/wanderLust";
 
 const dbUrl = process.env.ATLASDB_URL;
 
@@ -44,7 +44,7 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-  res.send("this is root user");
+  res.redirect("/listings");
 });
 
 const store = MongoStore.create({
@@ -56,8 +56,8 @@ const store = MongoStore.create({
 });
 
 store.on("error", () => {
-  console.log("ERROR IN MONGO SESSION STORE", err)
-})
+  console.log("ERROR IN MONGO SESSION STORE", err);
+});
 
 const sessionOptions = {
   store,
@@ -70,7 +70,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-
 
 app.use(session(sessionOptions));
 app.use(flash());
