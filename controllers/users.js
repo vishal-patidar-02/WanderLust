@@ -7,6 +7,7 @@ module.exports.renderSignupForm = (req, res) => {
 };
 
 module.exports.signupUser = async (req, res, next) => {
+  let host = req.headers.host;
   try {
     let { email, username, password } = req.body;
     req.session.tempUser = { email, username, password };
@@ -21,13 +22,8 @@ module.exports.signupUser = async (req, res, next) => {
     }
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    const verificationLink = `http://${req.headers.host}/verify-email?token=${token}`;
+    const verificationLink = `http://${host}/verify-email?token=${token}`;
 
-    // const newUser = new User({
-    //   email,
-    //   username,
-    //   isverified: false,
-    // });
     try{
       await sendVerificationEmail(email, verificationLink); 
       req.flash("success", "Check your mail-box & Verifiy your email");
