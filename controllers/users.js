@@ -14,7 +14,6 @@ module.exports.signupUser = async (req, res, next) => {
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-       console.log(existingUser);
        delete req.session.tempUser;
        req.flash("error", "Email is already registered");
        res.redirect("/signup");
@@ -43,7 +42,6 @@ module.exports.signupUser = async (req, res, next) => {
 
 module.exports.verifyUserEmail = async (req, res) => {
   let {token} = req.query;
-  console.log(token)
   try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const tempUser = req.session.tempUser;
@@ -52,6 +50,7 @@ module.exports.verifyUserEmail = async (req, res) => {
       delete req.session.tempUser; 
       req.flash("error", "Invalid or expired token.");
       res.redirect("/signup");
+      return;
     }
     
     let password = tempUser.password;
