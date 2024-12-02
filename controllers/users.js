@@ -16,8 +16,8 @@ module.exports.signupUser = async (req, res, next) => {
     if (existingUser) {
        delete req.session.tempUser;
        req.flash("error", "Email is already registered");
-       res.redirect("/signup");
-       return;
+       res.redirect("/signup");    
+       return;   
     }
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -45,12 +45,13 @@ module.exports.verifyUserEmail = async (req, res) => {
   try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const tempUser = req.session.tempUser;
+    console.log(decoded);
+    console.log(tempUser)
 
     if (!tempUser || tempUser.email !== decoded.email) {
       delete req.session.tempUser; 
       req.flash("error", "Invalid or expired token.");
-      res.redirect("/signup");
-      return;
+      return res.redirect("/signup");      
     }
     
     let password = tempUser.password;
