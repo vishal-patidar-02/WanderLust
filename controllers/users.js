@@ -59,12 +59,12 @@ module.exports.verifyUserEmail = async (req, res, next) => {
         res.redirect("/listings");
         return;
     }
+    console.log("ex" + existingUser)
 
     // Check for tempUser in session
     if (!tempUser || tempUser.email !== decoded.email) {
       req.flash("error", "Invalid or expired token.");
-      res.redirect("/signup"); 
-      return;          
+      res.redirect("/signup");        
     }
     
     const password = tempUser.password;
@@ -78,6 +78,7 @@ module.exports.verifyUserEmail = async (req, res, next) => {
     delete req.session.tempUser;  // Ensure cleanup
 
     let registerUser = await User.register(newUser, password);
+    console.log("registerUser" + registerUser);
 
     await req.login(registerUser, (err) => {
         if (err) {
