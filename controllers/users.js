@@ -9,16 +9,16 @@ module.exports.renderSignupForm = (req, res) => {
 module.exports.signupUser = async (req, res, next) => {
   let host = req.headers.host;
   try {
-    let { email, username, password } = req.body;
-    req.session.tempUser = { email, username, password };
+    let { email, username, password } = req.body;    
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
-       delete req.session.tempUser;
        req.flash("error", "Email is already registered");
        res.redirect("/signup");    
        return;   
     }
+
+    req.session.tempUserData = { email, username, password };
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '1h' });
     const verificationLink = `http://${host}/verify-email?token=${token}`;
@@ -28,44 +28,57 @@ module.exports.signupUser = async (req, res, next) => {
       req.flash("success", "Check your mail-box & Verifiy your email");
       res.redirect("/listings");
     } catch(err){ 
-      delete req.session.tempUser;
+      delete req.session.tempUserData;
       req.flash("error", "Fail to send verification mail");
-      res.redirect("/signup")
+      res.redirect("/signup");      
     }
-
   } catch (err) {
-    delete req.session.tempUser;
+    delete req.session.tempUserData;
     req.flash("error", err.message);
     res.redirect("/signup");
   }
 };
 
-module.exports.verifyUserEmail = async (req, res) => {
-  let {token} = req.query;
+module.exports.verifyUserEmail = async (req, res, next) => {
+  const {token} = req.query;
+  const tempUser = req.session.tempUserData;
+
+  if (!token) {
+    req.flash("error", "Token is missing.");
+    return res.redirect("/signup");
+  }  
+
   try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const tempUser = req.session.tempUser;
-    console.log(decoded);
-    console.log(tempUser)
+    
+    // Check if the user is already verified
+    const existingUser = await User.findOne({ email: decoded.email });
+    if (existingUser && existingUser.isVerified) {
+        req.flash("success", "You are already verified.");
+        res.redirect("/listings");
+        return;
+    }
 
+    // Check for tempUser in session
     if (!tempUser || tempUser.email !== decoded.email) {
-      delete req.session.tempUser; 
       req.flash("error", "Invalid or expired token.");
-      return res.redirect("/signup");      
+      res.redirect("/signup"); 
+      return;          
     }
     
-    let password = tempUser.password;
+    const password = tempUser.password;
 
     const newUser = new User({
       username: tempUser.username,
       email: tempUser.email,
       isVerified: true
     });
-
-    delete req.session.tempUser;
+    
+    delete req.session.tempUser;  // Ensure cleanup
 
     let registerUser = await User.register(newUser, password);
-    req.login(registerUser, (err) => {
+
+    await req.login(registerUser, (err) => {
         if (err) {
           return next(err);
         }
