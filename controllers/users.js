@@ -30,7 +30,8 @@ module.exports.signupUser = async (req, res, next) => {
     } catch(err){ 
       delete req.session.tempUserData;
       req.flash("error", "Fail to send verification mail");
-      res.redirect("/signup");      
+      res.redirect("/signup");
+      return;      
     }
   } catch (err) {
     delete req.session.tempUserData;
@@ -54,7 +55,7 @@ module.exports.verifyUserEmail = async (req, res, next) => {
     // Check if the user is already verified
     const existingUser = await User.findOne({ email: decoded.email });
     if (existingUser && existingUser.isVerified) {
-        req.flash("success", "You are already verified.");
+        req.flash("success", "--Email is Verified-- Welcome to the WanderLust");
         res.redirect("/listings");
         return;
     }
@@ -85,7 +86,6 @@ module.exports.verifyUserEmail = async (req, res, next) => {
         req.flash("success", "--Email is Verified-- Welcome to the WanderLust");
         res.redirect("/listings");
     });
-
   }catch(err){
     delete req.session.tempUser;
     req.flash("error", err.message);
