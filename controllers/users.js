@@ -55,16 +55,22 @@ module.exports.verifyUserEmail = async (req, res, next) => {
     // Check if the user is already verified
     const existingUser = await User.findOne({ email: decoded.email });
     if (existingUser && existingUser.isVerified) {
-        req.flash("success", "--Email is Verified-- Welcome to the WanderLust");
-        res.redirect("/listings");
+        await req.login(existingUser, (err) => {
+          if (err) {
+            return next(err);
+          }
+          req.flash("success", "--Email is Verified-- Welcome to the WanderLust");
+          res.redirect("/listings");
+        });
         return;
     }
-    console.log("ex" + existingUser)
 
     // Check for tempUser in session
     if (!tempUser || tempUser.email !== decoded.email) {
+      delete req.session.tempUser;
       req.flash("error", "Invalid or expired token.");
-      res.redirect("/signup");        
+      res.redirect("/signup");
+      return;
     }
     
     const password = tempUser.password;
@@ -78,7 +84,6 @@ module.exports.verifyUserEmail = async (req, res, next) => {
     delete req.session.tempUser;  // Ensure cleanup
 
     let registerUser = await User.register(newUser, password);
-    console.log("registerUser" + registerUser);
 
     await req.login(registerUser, (err) => {
         if (err) {
