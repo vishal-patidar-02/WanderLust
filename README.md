@@ -2,10 +2,19 @@
 
 WanderLust  is the intermediate version of a travel planning application developed as part of the Delta batch by Apna College. This project includes essential features for users to start exploring and planning their travels.
 
-## Features
+## Features Implemented by ME!!
 
+- **Responsive Design**  
+  The webpage is fully responsive, ensuring an optimal user experience across all devices, including desktops, tablets, and smartphones.
+
+- **Email Verification**  
+  Users receive a personalized email to verify their account during the registration process, enhancing account security.
+
+- **Forgot Password with OTP**  
+  A secure "Forgot Password" feature has been implemented, allowing users to reset their password using an OTP sent to their registered email address.
+
+## Features
 - **CRUD**: your can create an Listing, Find it, edit it and also delete it.
-- **Responsive**: Implementing An responsiveness in this website so it can friendly to any device
 - **user**: User can Signup, login and loggout.
 - **Review**: you can able to give review to listing
 - **session**: It can stores users info upto 14 days.

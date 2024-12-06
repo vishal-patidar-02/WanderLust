@@ -3,7 +3,7 @@
 <div class="row mt-3">
   <h2 class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12">Login</h2>
   <div class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12">
-    <form method="POST" action="/login" class="needs-validation" novalidate>
+    <form method="POST" action="/login" class="needs-validation " novalidate>
       <div class="mb-3">
         <label for="username" class="form-lable">Username</label>
         <input
@@ -24,7 +24,10 @@
           required
         />
       </div>
+      <div class="d-flex justify-content-between align-items-center">
       <button class="btn btn-success">login</button>
+      <a href="/forgot-password" class="ms-auto fst-italic">forgot password?</a>
+      </div>   
     </form>
   </div>
 </div>
