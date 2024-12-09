@@ -16,7 +16,7 @@ module.exports.signupUser = async (req, res, next) => {
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       req.flash("error", "Email is already registered");
-      res.redirect("/signup");
+      res.redirect("/users/signup");
       return;
     }
 
@@ -34,13 +34,13 @@ module.exports.signupUser = async (req, res, next) => {
     } catch (err) {
       delete req.session.tempUserData;
       req.flash("error", "Fail to send verification mail");
-      res.redirect("/signup");
+      res.redirect("/users/signup");
       return;
     }
   } catch (err) {
     delete req.session.tempUserData;
     req.flash("error", err.message);
-    res.redirect("/signup");
+    res.redirect("/users/signup");
   }
 };
 
@@ -50,7 +50,7 @@ module.exports.verifyUserEmail = async (req, res, next) => {
 
   if (!token) {
     req.flash("error", "Token is missing.");
-    return res.redirect("/signup");
+    return res.redirect("/users/signup");
   }
 
   try {
@@ -73,7 +73,7 @@ module.exports.verifyUserEmail = async (req, res, next) => {
     if (!tempUser || tempUser.email !== decoded.email) {
       delete req.session.tempUser;
       req.flash("error", "Invalid or expired token.");
-      res.redirect("/signup");
+      res.redirect("/users/signup");
       return;
     }
 
@@ -99,7 +99,7 @@ module.exports.verifyUserEmail = async (req, res, next) => {
   } catch (err) {
     delete req.session.tempUser;
     req.flash("error", err.message);
-    res.redirect("/signup");
+    res.redirect("/users/signup");
   }
 };
 
@@ -132,13 +132,13 @@ module,
     const email = req.body.email;
     if (!email) {
       req.flash("error", "Email is missing");
-      res.redirect("/forgot-password");
+      res.redirect("/users/forgot-password");
     }
     try {
       let user = await User.findOne({ email });
       if (!user) {
         req.flash("error", "No user found with this email");
-        res.redirect("/forgot-password");
+        res.redirect("/users/forgot-password");
         return;
       }
       let username = user.username;
@@ -151,17 +151,17 @@ module,
       try {
         await sendOtpEmail(email, username, otp);
         req.flash("success", "OTP sent to your email");
-        res.redirect("/forgot-password");
+        res.redirect("/users/forgot-password");
       } catch (err) {
         req.flash("error", "Fail to send OTP on email");
-        res.redirect("/forgot-password");
+        res.redirect("/users/forgot-password");
         delete req.session.passwordReset;
         return;
       }
     } catch (err) {
       delete req.session.passwordReset;
       req.flash("error", err.message);
-      res.redirect("/forgot-password");
+      res.redirect("/users/forgot-password");
     }
   });
 
@@ -169,7 +169,7 @@ module.exports.checkOtp = async (req, res, next) => {
   const otp = req.body.otp;
   if (!otp) {
     req.flash("error", "OTP is missing");
-    res.redirect("/forgot-password");
+    res.redirect("/users/forgot-password");
   }
 
   try {
@@ -180,7 +180,7 @@ module.exports.checkOtp = async (req, res, next) => {
       .digest("hex");
     if (!info) {
       req.flash("error", "Wrong Request");
-      res.redirect("/forgot-password");
+      res.redirect("/users/forgot-password");
       return;
     }
 
@@ -189,11 +189,11 @@ module.exports.checkOtp = async (req, res, next) => {
       res.render("users/resetPassword.ejs");
     } else {
       req.flash("error", "Wrong OTP, Try Again");
-      res.redirect("/forgot-password");
+      res.redirect("/users/forgot-password");
     }
   } catch (err) {
     req.flash("error", err.message);
-    res.redirect("/forgot-password");
+    res.redirect("/users/forgot-password");
     delete req.session.passwordReset;
   }
 };
@@ -204,7 +204,7 @@ module.exports.resetPassword = async (req, res, next) => {
 
   if(!newPassword || newPassword !== Confirm_password) {
     req.flash("error", "Passwords do not match");
-    res.redirect("/forgot-password");
+    res.redirect("/users/forgot-password");
     return;
   }
   try {
@@ -212,11 +212,11 @@ module.exports.resetPassword = async (req, res, next) => {
     await user.setPassword(newPassword);
     await user.save();
     req.flash("success", "Password Updated!");
-    res.redirect("/login");
+    res.redirect("/users/login");
     delete req.session.passwordReset;
   } catch (err) {
     req.flash("error", err.message);
-    res.redirect("/forgot-password");
+    res.redirect("/users/forgot-password");
     delete req.session.passwordReset;
   }
 };
