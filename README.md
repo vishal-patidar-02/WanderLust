@@ -13,6 +13,10 @@ WanderLust  is the intermediate version of a travel planning application develop
 - **Forgot Password with OTP**  
   A secure "Forgot Password" feature has been implemented, allowing users to reset their password using an OTP sent to their registered email address.
 
+ - **Search Functionality**  
+  The application now includes a search bar that allows users to search for destinations based on their preferences.
+  like Country, Location and Title.
+
 ## Features
 - **CRUD**: your can create an Listing, Find it, edit it and also delete it.
 - **user**: User can Signup, login and loggout.

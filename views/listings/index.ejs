@@ -154,6 +154,9 @@
 </div>
 
 <div class="row row-cols-lg row-cols-md-3 row-cols-sm-2 row-cols-esm-1 mt-3">
+  <% if(!allListings.length){ %>
+    <img class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12" src="https://res.cloudinary.com/ddml73nwc/image/upload/v1733723885/WanderLust_DEV/empty.59d15b3c_nnnfct.gif" alt="Listing_NotFound">
+  <% } %>  
   <% for(let listing of allListings) { %>
   <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card col listing-card">

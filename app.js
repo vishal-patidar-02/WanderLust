@@ -27,9 +27,9 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-// const dbUrl = "mongodb://127.0.0.1:27017/wanderLust";
+const dbUrl = "mongodb://127.0.0.1:27017/wanderLust";
 
-const dbUrl = process.env.ATLASDB_URL;
+// const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -90,7 +90,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingRouter); //Listing routes
 app.use("/listings/:id/reviews", reviewRouter); //Reviews routes
-app.use("/", userRouter);
+app.use("/users", userRouter);
 
 app.listen(8080, () => {
   console.log("Server is listening to port: 8080");

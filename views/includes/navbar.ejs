@@ -69,9 +69,10 @@
         >
       </div>
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+        <form action="/listings/search" class="d-flex" role="search">
           <input
             class="form-control me-2 search-input"
+            name="search"
             type="search"
             placeholder="Search destinations"
           />
@@ -85,14 +86,14 @@
           ><i class="fa-solid fa-earth-americas"></i> Airbnb your home</a
         >
         <% if(!currUser) { %>
-        <a class="nav-link" href="/signup"
+        <a class="nav-link" href="/users/signup"
           ><b><i class="fa-solid fa-circle-user"></i> Signup</b></a
         >
-        <a class="nav-link" href="/login"
+        <a class="nav-link" href="/users/login"
           ><b><i class="fa-solid fa-circle-user"></i> Login</b></a
         >
         <% } %> <% if(currUser) { %>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/users/logout">Logout</a>
         <% } %>
       </div>
     </div>
