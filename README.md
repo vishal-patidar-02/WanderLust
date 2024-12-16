@@ -17,6 +17,9 @@ WanderLust  is the intermediate version of a travel planning application develop
   The application now includes a search bar that allows users to search for destinations based on their preferences.
   like Country, Location and Title.
 
+ - **Category-Based Filtering**: Allows users to view listings filtered by specific categories through an intuitive interface.
+ 
+
 ## Features
 - **CRUD**: your can create an Listing, Find it, edit it and also delete it.
 - **user**: User can Signup, login and loggout.

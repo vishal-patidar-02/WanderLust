@@ -60,6 +60,11 @@
     align-items: center;
   }
 
+  .category-icon {
+    text-decoration: none !important;
+    color: black;
+  }
+
   @media (min-width: 200px) and (max-width: 537px) {
     .tax-toggle {
       border: 1px solid black;
@@ -81,60 +86,88 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
+        <a class="category-icon" href="/listings/category?category=Trending">
+          <div><i class="fa-solid fa-fire"></i></div>
+          <p>Trending</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
+        <a class="category-icon" href="/listings/category?category=Rooms">
+          <div><i class="fa-solid fa-bed"></i></div>
+          <p>Rooms</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Cities</p>
+        <a class="category-icon" href="/listings/category?category=Cities">
+          <div><i class="fa-solid fa-mountain-city"></i></div>
+          <p>Cities</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-mountain"></i></div>
-        <p>Mountains</p>
+        <a  class="category-icon" href="/listings/category?category=Mountains">
+          <div><i class="fa-solid fa-mountain"></i></div>
+          <p>Mountains</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Castles</p>
+        <a class="category-icon" href="/listings/category?category=Castles">
+          <div><i class="fa-brands fa-fort-awesome"></i></div>
+          <p>Castles</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-person-swimming"></i></div>
-        <p>Tools</p>
+        <a class="category-icon" href="/listings/category?category=Pools">
+          <div><i class="fa-solid fa-person-swimming"></i></div>
+          <p>Pools</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-campground"></i></div>
-        <p>Camping</p>
+        <a class="category-icon" href="/listings/category?category=Camping">
+          <div><i class="fa-solid fa-campground"></i></div>
+          <p>Camping</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-cow"></i></div>
-        <p>Farms</p>
+        <a class="category-icon" href="/listings/category?category=Farms">
+          <div><i class="fa-solid fa-cow"></i></div>
+          <p>Farms</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-regular fa-snowflake"></i></div>
-        <p>Arctic</p>
+        <a class="category-icon" href="/listings/category?category=Arctic">
+          <div><i class="fa-regular fa-snowflake"></i></div>
+          <p>Arctic</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-tree"></i></div>
-        <p>Forest</p>
+        <a class="category-icon" href="/listings/category?category=Forest">
+          <div><i class="fa-solid fa-tree"></i></div>
+          <p>Forest</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-ship"></i></div>
-        <p>Ship</p>
+        <a class="category-icon" href="/listings/category?category=Ship">
+          <div><i class="fa-solid fa-ship"></i></div>
+          <p>Ship</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-house"></i></div>
-        <p>Home</p>
+        <a class="category-icon" href="/listings/category?category=Home">
+          <div><i class="fa-solid fa-house"></i></div>
+          <p>Home</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-igloo"></i></div>
-        <p>Igloo</p>
+        <a class="category-icon" href="/listings/category?category=Igloo">
+          <div><i class="fa-solid fa-igloo"></i></div>
+          <p>Igloo</p>
+        </a>
       </div>
       <div class="swiper-slide">
-        <div><i class="fa-solid fa-film"></i></div>
-        <p>Cinematic</p>
+        <a class="category-icon" href="/listings/category?category=Cinematic">
+          <div><i class="fa-solid fa-film"></i></div>
+          <p>Cinematic</p>
+        </a>
       </div>
     </div>
     <div class="swiper-pagination"></div>
@@ -155,9 +188,12 @@
 
 <div class="row row-cols-lg row-cols-md-3 row-cols-sm-2 row-cols-esm-1 mt-3">
   <% if(!allListings.length){ %>
-    <img class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12" src="https://res.cloudinary.com/ddml73nwc/image/upload/v1733723885/WanderLust_DEV/empty.59d15b3c_nnnfct.gif" alt="Listing_NotFound">
-  <% } %>  
-  <% for(let listing of allListings) { %>
+  <img
+    class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12"
+    src="https://res.cloudinary.com/ddml73nwc/image/upload/v1733723885/WanderLust_DEV/empty.59d15b3c_nnnfct.gif"
+    alt="Listing_NotFound"
+  />
+  <% } %> <% for(let listing of allListings) { %>
   <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card col listing-card">
       <img

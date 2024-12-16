@@ -38,6 +38,10 @@ module.exports.createListing = async (req, res) => {
   let url = req.file.path;
   let filename = req.file.filename;
 
+  if (req.body.listing.categories) {
+    req.body.listing.categories = req.body.listing.categories.split(',').map(category => category.trim());
+  }
+
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
@@ -64,6 +68,9 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
+  if (req.body.listing.categories) {
+    req.body.listing.categories = req.body.listing.categories.split(',').map(category => category.trim());
+  }
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
   if (req.file) {
@@ -97,6 +104,7 @@ module.exports.search = async (req, res, next) => {
         {country: {$regex: search, $options: 'i'}}, //if country
         {location: {$regex: search, $options: 'i'}}, //if location
         {title: {$regex: search, $options: 'i'}}, //if title
+        {categories: {$regex: search, $options: 'i'}}, //if categories
       ]
      } 
 
@@ -107,4 +115,19 @@ module.exports.search = async (req, res, next) => {
      res.redirect("/listings");
   }
 
+}
+
+module.exports.categoriesListing = async (req, res) => {
+  let category = req.query.category;
+  if (!category) {
+    req.flash("error", "Please enter a category");
+    res.redirect("/listings");
+  }
+  try{
+     let allListings = await Listing.find({categories: category});
+     res.render("listings/index.ejs", {allListings});
+    } catch(err) {
+      req.flash("error", "Something went wrong");
+      res.redirect("/listings");
+    }
 }
