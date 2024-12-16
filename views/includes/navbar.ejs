@@ -26,13 +26,13 @@
       255,
       255,
       255,
-      0.95
+      1
     ); /* Light white background with slight transparency */
     border-radius: 5px; /* Optional: to give rounded corners */
     padding: 10px; /* Optional: some padding for spacing */
   }
 
-  @media (min-width: 768px) and (max-width: 981px) {
+  @media (min-width: 768px) and (max-width: 1009px) {
     a {
       font-size: smaller !important;
     }
@@ -52,8 +52,15 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"
-      ><i class="fa-regular fa-compass"></i
-    ></a>
+      >
+      <!-- <i class="fa-regular fa-compass"></i> -->
+      <img class="logo_img" src="https://res.cloudinary.com/ddml73nwc/image/upload/c_crop,w_300,h_300/v1733212920/WhatsApp_Image_2024-12-03_at_13.26.43_d183183f_oyg5cm.jpg" alt="Logo">
+    </a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="/listings"
+        ><b>WanderLust</b></a
+      >
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -62,12 +69,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings"
-          ><b>WanderLust</b></a
-        >
-      </div>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> 
       <div class="navbar-nav ms-auto">
         <form action="/listings/search" class="d-flex" role="search">
           <input

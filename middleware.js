@@ -40,6 +40,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
 };
 
 module.exports.validateListing = (req, res, next) => {
+  console.log(req.body);
   let { error } = listingSchema.validate(req.body); //Schema Validate for listing
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
