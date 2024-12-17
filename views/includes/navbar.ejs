@@ -4,6 +4,10 @@
     padding: 0;
     height: 3.938rem;
   }
+  .navbar-brand{
+      margin-right: 0.1rem !important;
+    }
+
   .search-btn {
     background-color: #fe424d;
     color: white;
@@ -40,9 +44,16 @@
     font-size: 1rem;
   }
 
+  #Logo{
+      font-size: 1.3rem !important;
+    }
+
   @media (min-width: 768px) and (max-width: 1009px) {
     a {
       font-size: smaller !important;
+    }
+    #Logo{
+      font-size: 1.2rem !important;
     }
     .search-input {
       padding: 0.2rem 0.6rem 0.2rem 0.6rem;
@@ -53,6 +64,25 @@
     }
     .search-btn {
       font-size: 0.7rem;
+    }
+  }
+  @media (max-width: 282px) {
+    .search-input {
+      padding: 0.2rem 0rem 0.2rem 0rem;
+      font-size: 0.7rem;
+    }
+    #Logo{
+      font-size: 0.6rem !important;
+    }
+    .nav-link{
+      font-size: 0.5rem !important;
+    }
+    .logo_img{   
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    .navbar-brand{
+      margin-right: 0.1rem !important;
     }
   }
 </style>
@@ -66,7 +96,7 @@
     </a>
     <div class="navbar-nav">
       <a style="padding: 0.1rem;" class="nav-link" href="/listings"
-        ><b style="font-size: 1.1rem;">WanderLust</b></a
+        ><b id="Logo">WanderLust</b></a
       >
     </div>
     <button
@@ -93,7 +123,7 @@
       </div>
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new"
-          ><i class="fa-solid fa-earth-americas"></i> Airbnb your home</a
+          ><i class="fa-solid fa-earth-americas"></i>Add your home</a
         >
         <% if(!currUser) { %>
         <a class="nav-link" href="/users/signup"
