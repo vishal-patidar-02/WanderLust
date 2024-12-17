@@ -1,4 +1,9 @@
 <style>
+
+  .navbar{
+    padding: 0;
+    height: 3.938rem;
+  }
   .search-btn {
     background-color: #fe424d;
     color: white;
@@ -11,7 +16,7 @@
 
   .search-btn i {
     display: inline;
-    margin-right: 1rem;
+    margin-right: 0.1rem;
   }
 
   .search-input {
@@ -28,8 +33,11 @@
       255,
       1
     ); /* Light white background with slight transparency */
-    border-radius: 5px; /* Optional: to give rounded corners */
-    padding: 10px; /* Optional: some padding for spacing */
+  }
+
+  .navbar-toggler{
+    padding: 0.1rem, 0.2rem;
+    font-size: 1rem;
   }
 
   @media (min-width: 768px) and (max-width: 1009px) {
@@ -54,11 +62,11 @@
     <a class="navbar-brand" href="/listings"
       >
       <!-- <i class="fa-regular fa-compass"></i> -->
-      <img class="logo_img" src="https://res.cloudinary.com/ddml73nwc/image/upload/c_crop,w_300,h_300/v1733212920/WhatsApp_Image_2024-12-03_at_13.26.43_d183183f_oyg5cm.jpg" alt="Logo">
+      <img class="logo_img" src="https://res.cloudinary.com/ddml73nwc/image/upload/v1734421398/Black_and_White_Circle_Business_Logo_1_f8aymt.png" alt="Logo">
     </a>
     <div class="navbar-nav">
-      <a class="nav-link" href="/listings"
-        ><b>WanderLust</b></a
+      <a style="padding: 0.1rem;" class="nav-link" href="/listings"
+        ><b style="font-size: 1.1rem;">WanderLust</b></a
       >
     </div>
     <button
