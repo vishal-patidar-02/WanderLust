@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function () {
       slidesPerGroup: 3,
       breakpoints: {
         50: {
-          slidesPerView: 3, // On smallest screens,
-          slidesPerGroup: 2,
+          slidesPerView: 4, // On smallest screens,
+          slidesPerGroup: 3,
         },
         400: {
           slidesPerView: 4, // On smallest screens,
-          slidesPerGroup: 2,
+          slidesPerGroup: 3,
         },
         640: {
           slidesPerView: 6, // On smaller screens,
