@@ -1,4 +1,38 @@
 <% layout("/layouts/boilerplate.ejs") -%>
+<style>
+   .btns {
+    display: flex;
+    width:  50rem;
+}
+
+#shareBtn{
+  display: flex;
+  width: 5.5rem;
+  height: 2.3rem;
+}
+
+@media (max-width: 362px){
+  .btnStyle{
+    font-size:x-small !important;
+  }
+  #shareBtn{
+  height: 2.1rem;
+  
+}
+}
+
+@media (max-width: 295px){
+  .btnStyle{
+    margin-top: 1rem;
+  }
+  .btns{
+    display: block !important;
+  }
+}
+
+</style>
+
+
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
   const listing = <%- JSON.stringify(listing) %>;
@@ -25,18 +59,47 @@
     </div>
   </div>
 
-  <% if(currUser && currUser._id.equals(listing.owner._id)){%>
-  <div class="btns">
-    <a
-      href="/listings/<%= listing._id %>/edit"
-      class="btn btn-dark col-1 offset-3 edit-btn"
-      >Edit</a
-    >
-    <form method="post" action="/listings/<%= listing._id %>?_method=Delete">
-      <button class="btn btn-dark offset-5">Delete</button>
+  
+  <div class="btns col-lg-6 offset-lg-2">
+    <button id="shareBtn" class="btnStyle btn btn-primary ms-2 me-2     ms-lg-5 me-lg-5">
+      <i class="fas fa-share"></i> Share
+    </button>
+    <% if(currUser && currUser._id.equals(listing.owner._id)){%>
+    <form method="get" action="/listings/<%= listing._id %>/edit">
+      <button style="background-color: #fe424d;" class="btnStyle btn btn-dark ms-2 me-2 pe-4 ps-4  me-lg-5">Edit</button>
     </form>
-  </div>
+    <form method="post" action="/listings/<%= listing._id %>?_method=Delete">
+      <button class="btnStyle btn btn-dark ms-2 me-2">Delete</button>
+    </form>
   <% } %>
+  </div>
+
+  
+
+
+  <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shareModalLabel">Share Your Listing</h5>
+          <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Select a platform to share your listing:</p>
+          <div class="d-flex justify-content-around">
+            <a id="facebookShare" href="#" class="btn btn-primary m-2"><i class="fab fa-facebook"></i> Facebook</a>
+            <a id="twitterShare" href="#" class="btn btn-info m-2"><i class="fab fa-twitter"></i> Twitter</a>
+            <a id="whatsappShare" href="#" class="btn btn-success m-2"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a id="copyLinkShare" href="#" class="btn btn-secondary m-2"><i class="fas fa-copy"></i> Copy Link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
   <div class="col-lg-8 offset-lg-2 mb-3">
     <% if(currUser){ %>
@@ -151,3 +214,35 @@
 </div>
 
 <script src="/js/map.js"></script>
+
+<script>
+  document.getElementById('shareBtn').addEventListener('click', () => {
+  const shareModal = new bootstrap.Modal(document.getElementById('shareModal'));
+  shareModal.show();
+
+  // Replace with your actual listing URL
+  const listingUrl = window.location.href;
+
+  // Generate sharing links
+  document.getElementById('facebookShare').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(listingUrl)}`;
+  document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(listingUrl)}&text=Check%20out%20this%20amazing%20listing!`;
+  document.getElementById('whatsappShare').href = `https://wa.me/?text=${encodeURIComponent('Check out this amazing listing: ' + listingUrl)}`;
+
+  // Copy to clipboard functionality
+  document.getElementById('copyLinkShare').addEventListener('click', () => {
+    navigator.clipboard.writeText(listingUrl).then(() => {
+      alert('Link copied to clipboard!');
+    });
+  });
+});
+
+</script>
+
+
+
+
+<!-- <a
+      href="/listings/<%= listing._id %>/edit"
+      class="btn btn-dark edit-btn"
+      >Edit</a
+    > -->
