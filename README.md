@@ -18,6 +18,9 @@ WanderLust  is the intermediate version of a travel planning application develop
   like Country, Location and Title.
 
  - **Category-Based Filtering**: Allows users to view listings filtered by specific categories through an intuitive interface.
+
+- **Share Feature**: This feature enables users to share a specific listing via Facebook, Twitter, WhatsApp, or by copying the link. It includes a responsive modal popup for platform selection, dynamically generates sharing links based on the listing URL, and uses Bootstrap and FontAwesome for styling and functionality.
+
  
 
 ## Features
