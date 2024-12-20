@@ -5,11 +5,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    text-align: center;
     height: 5.5rem;
   }
 
   .swiper {
-    width: 75%;
+    width: 95%;
   }
 
   .swiper-slide {
@@ -32,14 +33,14 @@
   .swiper-wrapper {
     top: -1rem;
     width: 100%;
-    height: 4rem;
+    height: 3.5rem;
     display: flex;
     flex-wrap: nowrap;
   }
 
   .swiper-pagination {
     position: relative;
-    margin-top: 0.3rem;
+    margin-bottom: 0.1rem;
     text-align: center;
   }
 
@@ -65,6 +66,11 @@
   .category-icon {
     text-decoration: none !important;
     color: black;
+    font-size: 0.98rem;
+  }
+
+  .card-text{
+    font-size: 0.8rem;
   }
 
   @media (min-width: 363px) and (max-width: 537px) {
@@ -72,15 +78,21 @@
       border: 1px solid black;
       border-radius: 1rem;
       font-size: 68%;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
       padding: 0.5rem;
       height: 2.5rem;
       display: flex;
       align-items: center;
     }
     .swiper {
-      width: 70%;
+      width: 95%;
     }
+    .card-text{
+    font-size: 0.8rem;
+    }
+    .category-icon {
+     font-size: 0.8rem;
+  }
   }
   @media(max-width: 363px){
     .tax-toggle{
@@ -89,10 +101,17 @@
     .swiper {
       width: 90%;
     }
-    .swiper-slide p {
-    font-size: 0.6rem;
   }
+
+  .main{
+    columns: 280px !important;
   }
+  @media (min-width:400px) and (max-width: 770px) {
+    .main{
+    columns: 190px !important;
+    }
+  }
+  
 </style>
 
 <div id="filters">
@@ -185,7 +204,7 @@
     </div>
     <div class="swiper-pagination"></div>
   </div>
-
+<!-- 
   <div class="tax-toggle ms-auto">
     <div class="form-check-reverse form-switch">
       <input
@@ -196,36 +215,43 @@
       />
       <label class="form-check-label" for="flexSwitchCheckDefault">Taxes</label>
     </div>
-  </div>
+  </div> -->
 </div>
 
-<div class="row row-cols-lg row-cols-md-3 row-cols-sm-2 row-cols-esm-1 mt-3">
+<div class="row mb-3"> 
+  <!-- row-cols-lg row-cols-md-3 row-cols-sm-2 row-cols-esm-1 -->
   <% if(!allListings.length){ %>
   <img
     class="col-lg-6 offset-lg-3 offset-sm-2 col-sm-8 offset col-12"
     src="https://res.cloudinary.com/ddml73nwc/image/upload/v1733723885/WanderLust_DEV/empty.59d15b3c_nnnfct.gif"
     alt="Listing_NotFound"
   />
-  <% } %> <% for(let listing of allListings) { %>
-  <a href="/listings/<%= listing._id %>" class="listing-link">
+  <% } %>
+  <div class="main">
+   <% for(let listing of allListings) { %>
+   <a href="/listings/<%= listing._id %>" class=" listing-link">
     <div class="card col listing-card">
       <img
         src="<%= listing.image.url %>"
         class="card-img-top"
-        alt="Listing_image"
-        style="height: 18rem"
-      />
+        alt="Listing_image" 
+      /> 
+      <!-- style="height: 18rem" -->
       <div class="card-img-overlay"></div>
       <div class="card-body">
         <p class="card-text">
           <b><%= listing.title %></b> <br />
           &#8377;<%= listing.price.toLocaleString("en-IN") %> / night
-          <i class="tax-info">&nbsp; &nbsp; +18% GST</i>
+          <!-- <i class="tax-info">&nbsp; &nbsp; +18% GST</i> -->
         </p>
       </div>
     </div>
   </a>
   <% } %>
 </div>
+</div>
 
 <script src="/js/swiper.js"></script>
+
+
+
