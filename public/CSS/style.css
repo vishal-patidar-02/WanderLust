@@ -61,6 +61,8 @@ body {
 .listing-card {
   border: none !important;
   margin-bottom: 2rem;
+  display: inline-block; /* Makes the card behave as a block */
+  break-inside: avoid; /* Prevents the card from splitting between columns */
 }
 
 .card-img-top {
